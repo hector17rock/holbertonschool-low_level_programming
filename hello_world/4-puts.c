@@ -1,7 +1,10 @@
-#!/bin/bash
 #include <stdio.h>
-
-int main(void) {
-    puts("Programming is like building a multilingual puzzle,");
-    return 0;
+/**
+*main - Entry Point
+*Return: 0 when done.
+*/
+int main(void)
+ {
+    puts("\"Programming is like building a multilingual puzzle,");
+    return (0);
 }
