@@ -1,1 +1,0 @@
-gcc -o 3-islower_0 -Wall -Werror -Wextra -pedantic -std=gnu89 _putchar.c main_0.c 3-islower.c
