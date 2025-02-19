@@ -1,27 +1,34 @@
 #include <stdio.h>
 
-/* Function to check if a character is lowercase */
-int is_lowercase(char c)
+/**
+ * _islower - checks if a character is lowercase
+ * @c: the character to be checked
+ *
+ * Return: 1 if c is lowercase, 0 otherwise
+ */
+int _islower(int c)
 {
 	if (c >= 'a' && c <= 'z')
+	{
 		return (1);
+	}
 	else
+	{
 		return (0);
+	}
 }
 
-/* Main function */
 int main(void)
 {
-	char ch = 'a';
+	int r;
 
-	if (is_lowercase(ch))
-	{
-		printf("%c is lowercase.\n", ch);
-	}
-	else
-	{
-		printf("%c is not lowercase.\n", ch);
-	}
+	r = _islower('H');
+	putchar(r + '0');
+	r = _islower('o');
+	putchar(r + '0');
+	r = _islower(108);  /* ASCII value for 'l' */
+	putchar(r + '0');
+	putchar('\n');
 
 	return (0);
 }
