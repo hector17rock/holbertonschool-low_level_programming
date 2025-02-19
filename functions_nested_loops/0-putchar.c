@@ -1,11 +1,20 @@
-#!/bin/bash
-#include <stdio.h>
+#include "main.h"
 
+/**
+ * main - Print var
+ *
+ * Return: Always 0
+ */
 int main(void)
 {
-    // Printing "_putchar" followed by a new line
-    printf("_putchar\n");
+	char *p = "_putchar";
 
-    // Returning 0 to indicate successful execution
-    return 0;
+	while (*p)
+	{
+		_putchar(*p);
+		p++;
+	}
+
+	_putchar('\n');
+	return (0);
 }
