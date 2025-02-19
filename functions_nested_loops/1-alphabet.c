@@ -1,20 +1,13 @@
-#include <stdio.h>
-
+#include "main.h"
+/**
+ * print_alphabet - Print the Alphabet
+ */
 void print_alphabet(void)
 {
-    char letter;
+	int abc;
 
-    // Loop through the alphabet, from 'a' to 'z'
-    for (letter = 'a'; letter <= 'z'; letter++)
-    {
-        putchar(letter);  // Print each letter
-    }
-
-    putchar('\n');  // Print the new line after the alphabet
-}
-
-int main(void)
-{
-    print_alphabet();  // Call the function to print the alphabet
-    return 0;
+	/* This Print the full alphabet with a new line at the end*/
+	for (abc = 'a'; abc <= 'z'; abc++)
+		_putchar(abc);
+	_putchar('\n');
 }
