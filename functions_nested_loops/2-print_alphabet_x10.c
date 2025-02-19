@@ -1,15 +1,18 @@
-#include <stdio.h>
+#include <stdio.h>  // Include for putchar
 
-void print_alphabet_ten_times() {
-    for (int i = 0; i < 10; i++) {
-        for (char ch = 'a'; ch <= 'z'; ch++) {
-            putchar(ch);  // Print each letter of the alphabet
+/* Prototype of the function */
+void print_alphabet_x10(void);
+
+void print_alphabet_x10(void) {
+    int i;
+    char ch;
+
+    /* Loop 10 times */
+    for (i = 0; i < 10; i++) {
+        /* Loop through the alphabet */
+        for (ch = 'a'; ch <= 'z'; ch++) {
+            putchar(ch);  // Use putchar to print each character
         }
-        putchar('\n');  // Print a new line after each alphabet
+        putchar('\n');  // Print newline after each sequence
     }
-}
-
-int main() {
-    print_alphabet_ten_times();  // Call the function
-    return 0;
 }
