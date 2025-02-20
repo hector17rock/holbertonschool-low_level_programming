@@ -14,17 +14,17 @@ void jack_bauer(void)
 		for (minute = 0; minute < 60; minute++)
 		{
 			/* Print the hour's tens place */
-			putchar(hour / 10 + '0');
+			_putchar(hour / 10 + '0');
 			/* Print the hour's ones place */
-			putchar(hour % 10 + '0');
+			_putchar(hour % 10 + '0');
 			/* Print the colon separator */
-			putchar(':');
+			_putchar(':');
 			/* Print the minute's tens place */
-			putchar(minute / 10 + '0');
+			_putchar(minute / 10 + '0');
 			/* Print the minute's ones place */
-			putchar(minute % 10 + '0');
+			_putchar(minute % 10 + '0');
 			/* Print a newline character after each time */
-			putchar('\n');
+			_putchar('\n');
 		}
 	}
 }
