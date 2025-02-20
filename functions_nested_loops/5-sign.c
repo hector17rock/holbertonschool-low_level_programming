@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <unistd.h>  // For write()
+#include <unistd.h>  /* For write() */
 
 /**
  * print_sign - Prints the sign of a number.
@@ -9,19 +9,19 @@
  */
 int print_sign(int n)
 {
-    if (n > 0)
-    {
-        write(1, "+\n", 2);  // Write the '+' character followed by newline
-        return (1);
-    }
-    else if (n == 0)
-    {
-        write(1, "0\n", 2);  // Write '0' followed by newline
-        return (0);
-    }
-    else
-    {
-        write(1, "-\n", 2);  // Write the '-' character followed by newline
-        return (-1);
-    }
+	if (n > 0)
+	{
+		write(1, "+\n", 2);  /* Write '+' followed by newline */
+		return (1);
+	}
+	else if (n == 0)
+	{
+		write(1, "0\n", 2);  /* Write '0' followed by newline */
+		return (0);
+	}
+	else
+	{
+		write(1, "-\n", 2);  /* Write '-' followed by newline */
+		return (-1);
+	}
 }
