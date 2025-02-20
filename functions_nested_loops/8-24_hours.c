@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
  * jack_bauer - prints every minute of the day, starting from 00:00 to 23:59
@@ -8,12 +7,24 @@ void jack_bauer(void)
 {
 	int hour, minute;
 
+	/* Loop through each hour of the day (from 00 to 23) */
 	for (hour = 0; hour < 24; hour++)
 	{
+		/* Loop through each minute of the current hour (from 00 to 59) */
 		for (minute = 0; minute < 60; minute++)
 		{
-			/* Print the time in the format HH:MM */
-			printf("%02d:%02d\n", hour, minute);
+			/* Print the hour's tens place */
+			putchar(hour / 10 + '0');
+			/* Print the hour's ones place */
+			putchar(hour % 10 + '0');
+			/* Print the colon separator */
+			putchar(':');
+			/* Print the minute's tens place */
+			putchar(minute / 10 + '0');
+			/* Print the minute's ones place */
+			putchar(minute % 10 + '0');
+			/* Print a newline character after each time */
+			putchar('\n');
 		}
 	}
 }
