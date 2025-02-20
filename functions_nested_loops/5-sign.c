@@ -11,17 +11,20 @@ int print_sign(int n)
 {
 	if (n > 0)
 	{
-		write(1, "+\n", 2);  /* Write '+' followed by newline */
+		write(1, "+", 1);  /* Write '+' */
+		write(1, "1", 1);  /* Write return value '1' */
 		return (1);
 	}
 	else if (n == 0)
 	{
-		write(1, "0\n", 2);  /* Write '0' followed by newline */
+		write(1, "0", 1);  /* Write '0' */
+		write(1, "0", 1);  /* Write return value '0' */
 		return (0);
 	}
 	else
 	{
-		write(1, "-\n", 2);  /* Write '-' followed by newline */
+		write(1, "-", 1);  /* Write '-' */
+		write(1, "-1", 2);  /* Write return value '-1' */
 		return (-1);
 	}
 }
