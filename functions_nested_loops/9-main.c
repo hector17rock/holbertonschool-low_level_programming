@@ -1,11 +1,12 @@
-#include "main.h"  /* Include the header file */
+#include "main.h"
 
 /**
- * main - Entry point of the program.
+ * main - check the code
+ *
+ * Return: Always 0.
  */
 int main(void)
 {
-    print_9_times_table();  /* Call the renamed function */
+    times_table();
     return (0);
 }
-

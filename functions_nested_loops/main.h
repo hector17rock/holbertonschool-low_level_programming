@@ -7,11 +7,4 @@ int print_sign(int n);
 int _abs(int);
 int print_last_digit(int);
 void jack_bauer(void);
-#ifndef MAIN_H
-#define MAIN_H
-
-int _putchar(char c);      /* Declaration of _putchar function */
-void print_9_times_table(void);  /* Declaration of the renamed function */
-
-#endif /* MAIN_H */
-
+void times_table(void);
