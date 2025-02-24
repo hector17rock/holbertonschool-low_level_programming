@@ -11,7 +11,7 @@ void print_most_numbers(void)
 
 	for (i = 0; i < 10; i++)
 	{
-		if (i != 4 && i != 6)
+		if (i != 4 && i != 6)  /* Skip 4 and 6 only */
 		{
 			_putchar(i + '0');  /* Convert integer to character and print it */
 		}
