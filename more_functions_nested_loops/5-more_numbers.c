@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * more_numbers - prints numbers from 0 to 14, excluding 2 and 4
+ * more_numbers - prints numbers from 0 to 14
  *                10 times, each on a new line
  */
 void more_numbers(void)
@@ -15,14 +15,11 @@ void more_numbers(void)
 		/* Loop for numbers from 0 to 14 */
 		for (j = 0; j <= 14; j++)
 		{
-			if (j != 2 && j != 4)
+			if (j >= 10)
 			{
-				if (j >= 10)
-				{
-					_putchar((j / 10) + '0'); /* Print the tens digit */
-				}
-				_putchar((j % 10) + '0'); /* Print the ones digit */
+				_putchar((j / 10) + '0'); /* Print the tens digit */
 			}
+			_putchar((j % 10) + '0'); /* Print the ones digit */
 		}
 		_putchar('\n'); /* Print a newline after each iteration */
 	}
