@@ -1,15 +1,19 @@
 #include "main.h"
 
 /**
- * main - check the code
+ * _puts - Prints a string to stdout.
+ * @str: The string to be printed.
  *
- * Return: Always 0.
+ * This function loops through each character in the string and prints
+ * it using _putchar until the null-terminator is reached. A newline is
+ * printed after the string.
  */
-int main(void)
+void _puts(char *str)
 {
-	char *str;
-
-	str = "I do not fear computers. I fear the lack of them - Isaac Asimov";
-	_puts(str);
-	return (0);
+	while (*str)
+	{
+		_putchar(*str);  /* Calls the custom _putchar function */
+		str++;
+	}
+	_putchar('\n');
 }
