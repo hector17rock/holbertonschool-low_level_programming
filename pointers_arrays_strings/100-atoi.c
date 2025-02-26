@@ -1,48 +1,37 @@
-#include <stdio.h>
 #include "main.h"
+#include <limits.h> /* Needed for INT_MAX and INT_MIN */
 
 /**
- * _atoi - Converts a string to an integer.
- * @s: The string to convert.
+ * _atoi - Converts a string to an integer safely.
+ * @s: Pointer to the string.
  *
- * Return: The converted integer.
+ * Return: The integer value of the string, or 0 if no numbers found.
  */
 int _atoi(char *s)
 {
-	int i = 0;
-	int sign = 1;
-	int result = 0;
+	int sign = 1, result = 0;
+	int digit;
 
-	/* Skip leading whitespace */
-	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' ||
-			s[i] == '\v' || s[i] == '\f' || s[i] == '\r')
+	while (*s)
 	{
-		i++;
-	}
-
-	/* Handle signs (+ or -) */
-	if (s[i] == '-' || s[i] == '+')
-	{
-		if (s[i] == '-')
+		if (*s == '-')
+			sign *= -1; /* Toggle sign for every '-' encountered */
+		else if (*s >= '0' && *s <= '9')
 		{
-			sign = -1;  /* Mark negative number */
+			digit = *s - '0';
+
+			/* Check for overflow before adding next digit */
+			if (result > (INT_MAX - digit) / 10)
+				return (sign == 1 ? INT_MAX : INT_MIN);
+
+			result = result * 10 + digit;
 		}
-		i++;  /* Move past the sign */
+		else if (result > 0) /* Stop processing if numbers have started */
+			break;
+
+		s++; /* Move to next character */
 	}
 
-	/* Debugging: print the current index and the character */
-	printf("i = %d, sign = %d\n", i, sign);
-
-	/* Convert the string to an integer */
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		result = result * 10 + (s[i] - '0');  /* Build the number */
-		i++;
-	}
-
-	/* Debugging: print the result */
-	printf("Result = %d\n", result);
-
-	return (result * sign);  /* Apply the sign and return */
+	return (result * sign);
 }
 
