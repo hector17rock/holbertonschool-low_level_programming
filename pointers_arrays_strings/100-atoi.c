@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
@@ -29,12 +30,18 @@ int _atoi(char *s)
 		i++;  /* Move past the sign */
 	}
 
+	/* Debugging: print the current index and the character */
+	printf("i = %d, sign = %d\n", i, sign);
+
 	/* Convert the string to an integer */
 	while (s[i] >= '0' && s[i] <= '9')
 	{
 		result = result * 10 + (s[i] - '0');  /* Build the number */
 		i++;
 	}
+
+	/* Debugging: print the result */
+	printf("Result = %d\n", result);
 
 	return (result * sign);  /* Apply the sign and return */
 }
