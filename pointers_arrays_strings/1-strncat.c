@@ -1,27 +1,32 @@
 #include "main.h"
-#include <stdio.h>
-#include <string.h>  /* for strlen */
 
 /**
- * _strncat - Concatenates at most n characters from srcto dest.
- * @dest: The destination string.
- * @src: The source string.
- * @n: The maximum number of bytes to append.
+ * _strncat - concatenates at most n characters from src to dest
+ * @dest: pointer to destination string
+ * @src: pointer to source string
+ * @n: number of bytes to concatenate
  *
- * Return: The concatenated string.
+ * Return: pointer to dest
  */
-char *_strncat(char *dest, const char *src, int n)
+char *_strncat(char *dest, char *src, int n)
 {
+	int dest_len = 0;
 	int i = 0;
-	int dest_len = strlen(dest);
 
-	while (src[i] != '\0' && i < n)
+	/* find the end of dest */
+	while (dest[dest_len] != '\0')
+		dest_len++;
+
+	/* Append at most n characters from src */
+	while (i < n && src[i] != '\0')
 	{
-		dest[dest_len + i] = src[i];
+		dest[dest_len] = src[i];
+		dest_len++;
 		i++;
 	}
 
-	dest[dest_len + i] = '\0';  /* Null-terminate the result */
-	return (dest);  /* Add parentheses */
+	dest[dest_len] = '\0';
+
+	return (dest);
 }
 
