@@ -8,25 +8,42 @@
  */
 int is_palindrome(char *s)
 {
-	int len = 0;
-	int i = 0;
+	return (check_palindrome(s, 0, string_length(s) - 1));
+}
 
-	/* Find the length of the string */
-	while (s[len] != '\0')
+/**
+ * string_length - Recursively calculates the length of a string
+ * @s: The string whose length is to be calculated
+ *
+ * Return: The length of the string
+ */
+int string_length(char *s)
+{
+	if (*s == '\0')
 	{
-		len++;
+		return (0);
 	}
+	return (1 + string_length(s + 1));
+}
 
-	/* Compare characters from both ends */
-	while (i < len / 2)
+/**
+ * check_palindrome - Recursively checks if a string is a palindrome
+ * @s: The string to be checked
+ * @left: The left index to compare
+ * @right: The right index to compare
+ *
+ * Return: 1 if palindrome, 0 otherwise
+ */
+int check_palindrome(char *s, int left, int right)
+{
+	if (left >= right)
 	{
-		if (s[i] != s[len - i - 1])
-		{
-			return (0);
-		}
-		i++;
+		return (1);
 	}
-
-	return (1);
+	if (s[left] != s[right])
+	{
+		return (0);
+	}
+	return (check_palindrome(s, left + 1, right - 1));
 }
 
