@@ -21,9 +21,11 @@ int main(int argc, char *argv[])
 	}
 
 	cents = atoi(argv[1]);
-	/* If the input is negative, return 0 as expected by the test case */
+
+	/* If the input is negative, print 0 as expected by the test case. */
 	if (cents < 0)
 	{
+		printf("0\n");
 		return (0);
 	}
 
@@ -39,6 +41,7 @@ int main(int argc, char *argv[])
 	}
 
 	printf("%d\n", coins);
+
 	return (0);
 }
 
