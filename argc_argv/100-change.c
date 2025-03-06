@@ -21,13 +21,13 @@ int main(int argc, char *argv[])
 	}
 
 	cents = atoi(argv[1]);
-	coins = 0;
-
+	/* If the input is negative, return 0 as expected by the test case */
 	if (cents < 0)
 	{
-		printf("Error\n");
-		return (1);
+		return (0);
 	}
+
+	coins = 0;
 
 	for (i = 0; i < num_denominations; i++)
 	{
