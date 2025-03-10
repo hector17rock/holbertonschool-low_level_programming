@@ -1,49 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-
-/**
- * is_digit - Checks if a string consists of only digits.
- * @s: The string to check.
- *
- * Return: 1 if all characters are digits, 0 otherwise.
- */
-int is_digit(char *s)
-{
-	int i = 0;
-
-	while (s[i])
-	{
-		if (!isdigit(s[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-/**
- * str_len - Computes the length of a string.
- * @s: The string.
- *
- * Return: The length of the string.
- */
-int str_len(char *s)
-{
-	int len = 0;
-
-	while (s[len])
-		len++;
-	return (len);
-}
-
-/**
- * print_error - Prints an error message and exits with code 98.
- */
-void print_error(void)
-{
-	printf("Error\n");
-	exit(98);
-}
+#include "101-mul.h"
 
 /**
  * multiply - Multiplies two numbers represented as strings.
@@ -57,9 +12,7 @@ void multiply(char *num1, char *num2)
 
 	len1 = str_len(num1);
 	len2 = str_len(num2);
-	result = calloc(len1 + len2, sizeof(int));
-	if (!result)
-		print_error();
+	result = allocate_result(len1 + len2);
 
 	for (i = len1 - 1; i >= 0; i--)
 	{
@@ -73,23 +26,11 @@ void multiply(char *num1, char *num2)
 			carry = sum / 10;
 			result[i + j + 1] = sum % 10;
 		}
-
 		if (carry)
 			result[i + j + 1] += carry;
 	}
 
-	i = 0;
-	while (i < len1 + len2 && result[i] == 0)
-		i++;
-
-	if (i == len1 + len2)
-		printf("0");
-	else
-		while (i < len1 + len2)
-			printf("%d", result[i++]);
-
-	printf("\n");
-	free(result);
+	print_result(result, len1 + len2);
 }
 
 /**
@@ -105,6 +46,7 @@ int main(int argc, char *argv[])
 		print_error();
 
 	multiply(argv[1], argv[2]);
+
 	return (0);
 }
 
