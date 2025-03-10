@@ -1,6 +1,9 @@
 #ifndef DOG_H
 #define DOG_H
 
+#include <stddef.h> /* Include for NULL */
+#include <stdio.h>  /* Include for printf */
+
 /**
  * struct dog - Defines a dog's attributes
  * @name: Name of the dog
@@ -17,7 +20,9 @@ float age;
 char *owner;
 };
 
-/* Function prototype for init_dog */
+/* Function prototypes */
 void init_dog(struct dog *d, char *name, float age, char *owner);
+void print_dog(struct dog *d);
 
 #endif /* DOG_H */
+
