@@ -3,6 +3,7 @@
 
 #include <stddef.h> /* Include for NULL */
 #include <stdio.h>  /* Include for printf */
+#include <stdlib.h> /* Include for malloc and free */
 
 /**
  * struct dog - Defines a dog's attributes
@@ -24,6 +25,10 @@ char *owner;
  * dog_t - Typedef for struct dog
  */
 typedef struct dog dog_t;
+
+/* Function prototypes */
+dog_t *new_dog(char *name, float age, char *owner);
+void free_dog(dog_t *d);
 
 #endif /* DOG_H */
 
