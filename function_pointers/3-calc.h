@@ -6,9 +6,10 @@
 
 /**
  * struct op - Struct op
- *
  * @op: The operator
  * @f: The function associated
+ *
+ * Description: Defines a struct that maps an operator to a function.
  */
 typedef struct op
 {
@@ -16,6 +17,7 @@ typedef struct op
   int (*f)(int a, int b);
 } op_t;
 
+/* Function Prototypes */
 int op_add(int a, int b);
 int op_sub(int a, int b);
 int op_mul(int a, int b);
