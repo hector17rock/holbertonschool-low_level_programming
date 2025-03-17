@@ -1,0 +1,1 @@
+gcc -std=gnu89 100-main_opcodes.c -o main
