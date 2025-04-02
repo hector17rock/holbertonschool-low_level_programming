@@ -1,7 +1,9 @@
 #ifndef LISTS_H
 #define LISTS_H
 
-#include <stddef.h>
+#include <stdlib.h>  /* for size_t */
+#include <stdio.h>   /* if you use printf in related files */
+#include <string.h>  /* if you use strdup */
 
 /**
  * struct list_s - singly linked list
@@ -19,6 +21,7 @@ struct list_s *next;
 } list_t;
 
 size_t print_list(const list_t *h);
+size_t list_len(const list_t *h);
 
 #endif /* LISTS_H */
 
