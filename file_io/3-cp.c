@@ -23,7 +23,7 @@ void error_handler(int error_code, void *arg1, int arg2)
 	{
 	case 97: /* Usage error */
 		filename = (char *)arg1;
-		dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", filename);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	case 98: /* Read error */
 		filename = (char *)arg1;
