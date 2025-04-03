@@ -35,25 +35,22 @@ int main(int ac, char **av)
 		print_error_and_exit("Error: Can't write to", av[2], 99);
 	}
 
-	while (1)
+	while ((r_bytes = read(from_fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		r_bytes = read(from_fd, buffer, BUFFER_SIZE);
-		if (r_bytes == -1)
-		{
-			close_fd(from_fd);
-			close_fd(to_fd);
-			print_error_and_exit("Error: Can't read from file", av[1], 98);
-		}
-		if (r_bytes == 0)
-			break;
-
 		w_bytes = write(to_fd, buffer, r_bytes);
-		if (w_bytes != r_bytes)
+		if (w_bytes == -1 || w_bytes != r_bytes)
 		{
 			close_fd(from_fd);
 			close_fd(to_fd);
 			print_error_and_exit("Error: Can't write to", av[2], 99);
 		}
+	}
+
+	if (r_bytes == -1)
+	{
+		close_fd(from_fd);
+		close_fd(to_fd);
+		print_error_and_exit("Error: Can't read from file", av[1], 98);
 	}
 
 	close_fd(from_fd);
@@ -64,29 +61,7 @@ int main(int ac, char **av)
 
 /**
  * print_error_and_exit - Prints an error message and exits
- * @msg: Error message
- * @file: File name (can be NULL)
- * @code: Exit code
+ * @msg: The base error message
+ * @file: The filename to include in the message (can be NULL)
+ * @code: The exit code*
  */
-void print_error_and_exit(const char *msg, const char *file, int code)
-{
-	if (file)
-		dprintf(STDERR_FILENO, "%s %s\n", msg, file);
-	else
-		dprintf(STDERR_FILENO, "%s\n", msg);
-	exit(code);
-}
-
-/**
- * close_fd - Closes a file descriptor and handles error
- * @fd: File descriptor to close
- */
-void close_fd(int fd)
-{
-	if (close(fd) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-		exit(100);
-	}
-}
-
