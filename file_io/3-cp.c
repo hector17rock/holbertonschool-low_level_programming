@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	if (fd_to == -1)
 	{
 		close_fd(fd_from);
-		print_error("Error: Can't write to", argv[2], 99);
+		print_error("Error: Can't write to", argv[2], 98);
 	}
 
 	while (1)
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 		{
 			close_fd(fd_from);
 			close_fd(fd_to);
-			print_error("Error: Can't write to", argv[2], 99);
+			print_error("Error: Can't write to", argv[2], 98);
 		}
 	}
 
