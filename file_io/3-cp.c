@@ -1,121 +1,69 @@
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <stdint.h>
 
 /**
- * error_handler - handles all error cases and exits
- * @error_code: the type of error (97-100)
- * @arg1: primary argument (filename or fd)
- * @arg2: secondary argument (fd_from for write error, NULL for others)
- *
- * Return: Never returns
+ * error_exit - Prints an error message and exits
+ * @code: Exit code
+ * @message: Error message
+ * @file: File name associated with the error
  */
-void error_handler(int error_code, void *arg1, int arg2)
+void error_exit(int code, const char *message, const char *file)
 {
-	char *filename;
-	int fd;
-
-	switch (error_code)
-	{
-	case 97: /* Usage error */
-		filename = (char *)arg1;
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-		exit(97);
-	case 98: /* Read error */
-		filename = (char *)arg1;
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
-		exit(98);
-	case 99: /* Write error */
-		filename = (char *)arg1;
-		fd = arg2;
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
-		close(fd);
-		exit(99);
-	case 100: /* Close error */
-		fd = *((int *)&arg1);
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-		exit(100);
-	default:
-		exit(1);
-	}
+	dprintf(STDERR_FILENO, "%s %s\n", message, file);
+	exit(code);
 }
 
 /**
- * copy_file - copies content from one file to another
- * @fd_from: file descriptor for source file
- * @fd_to: file descriptor for destination file
- * @file_from: source file name
- * @file_to: destination file name
+ * main - Entry point for file copy program
+ * @argc: Argument count
+ * @argv: Argument vector
  *
- * Return: 0 on success
+ * Return: 0 on success, exits with codes on failure
  */
-int copy_file(int fd_from, int fd_to, char *file_from, char *file_to)
+int main(int argc, char *argv[])
 {
-	int rd, wr;
+	int fd_from, fd_to, r, w;
 	char buffer[1024];
 
-	while (1)
+	if (argc != 3)
 	{
-		rd = read(fd_from, buffer, 1024);
-		if (rd == -1)
-			error_handler(98, file_from, 0);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
+	}
 
-		if (rd == 0)
-			break;
+	fd_from = open(argv[1], O_RDONLY);
+	if (fd_from == -1)
+		error_exit(98, "Error: Can't read from file", argv[1]);
 
-		wr = write(fd_to, buffer, rd);
-		if (wr == -1 || wr != rd)
-		{
-			close(fd_to);
-			error_handler(99, file_to, fd_from);
-		}
+	fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	if (fd_to == -1)
+		error_exit(99, "Error: Can't write to", argv[2]);
+
+	while ((r = read(fd_from, buffer, 1024)) > 0)
+	{
+		w = write(fd_to, buffer, r);
+		if (w != r)
+			error_exit(99, "Error: Can't write to", argv[2]);
+	}
+
+	if (r == -1)
+		error_exit(98, "Error: Can't read from file", argv[1]);
+
+	if (close(fd_from) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+		exit(100);
+	}
+
+	if (close(fd_to) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
+		exit(100);
 	}
 
 	return (0);
 }
 
-/**
- * main - copies the content of a file to another file
- * @ac: argument count
- * @av: argument vector
- *
- * Return: 0 on success, or exit code on failure
- */
-int main(int ac, char **av)
-{
-	int fd_from, fd_to;
-	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-
-	if (ac != 3)
-		error_handler(97, av[0], 0);
-
-	fd_from = open(av[1], O_RDONLY);
-	if (fd_from == -1)
-		error_handler(98, av[1], 0);
-
-	/* Try reading first to catch read errors */
-	char test_buf[1];
-	if (read(fd_from, test_buf, 1) == -1)
-		error_handler(98, av[1], 0);
-
-	/* Reset file position */
-	lseek(fd_from, 0, SEEK_SET);
-
-	fd_to = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, mode);
-	if (fd_to == -1)
-		error_handler(99, av[2], fd_from);
-
-	copy_file(fd_from, fd_to, av[1], av[2]);
-
-	if (close(fd_from) == -1)
-		error_handler(100, (void *)(intptr_t)fd_from, 0);
-
-	if (close(fd_to) == -1)
-		error_handler(100, (void *)(intptr_t)fd_to, 0);
-
-	return (0);
-}
