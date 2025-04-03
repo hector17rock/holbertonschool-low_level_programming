@@ -62,10 +62,7 @@ int copy_file(int fd_from, int fd_to, char *file_from, char *file_to)
 	{
 		rd = read(fd_from, buffer, 1024);
 		if (rd == -1)
-		{
-			close(fd_to);
 			error_handler(98, file_from, 0);
-		}
 
 		if (rd == 0)
 			break;
