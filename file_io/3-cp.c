@@ -35,8 +35,18 @@ int main(int ac, char **av)
 		print_error_and_exit("Error: Can't write to", av[2], 99);
 	}
 
-	while ((r_bytes = read(from_fd, buffer, BUFFER_SIZE)) > 0)
+	while (1)
 	{
+		r_bytes = read(from_fd, buffer, BUFFER_SIZE);
+		if (r_bytes == -1)
+		{
+			close_fd(from_fd);
+			close_fd(to_fd);
+			print_error_and_exit("Error: Can't read from file", av[1], 98);
+		}
+		if (r_bytes == 0)
+			break;
+
 		w_bytes = write(to_fd, buffer, r_bytes);
 		if (w_bytes != r_bytes)
 		{
@@ -46,13 +56,6 @@ int main(int ac, char **av)
 		}
 	}
 
-	if (r_bytes == -1)
-	{
-		close_fd(from_fd);
-		close_fd(to_fd);
-		print_error_and_exit("Error: Can't read from file", av[1], 98);
-	}
-
 	close_fd(from_fd);
 	close_fd(to_fd);
 
@@ -60,9 +63,9 @@ int main(int ac, char **av)
 }
 
 /**
- * print_error_and_exit - Prints error to stderr and exits
+ * print_error_and_exit - Prints an error message and exits
  * @msg: Error message
- * @file: File name to append (can be NULL)
+ * @file: File name (can be NULL)
  * @code: Exit code
  */
 void print_error_and_exit(const char *msg, const char *file, int code)
@@ -75,7 +78,7 @@ void print_error_and_exit(const char *msg, const char *file, int code)
 }
 
 /**
- * close_fd - Closes a file descriptor with error check
+ * close_fd - Closes a file descriptor and handles error
  * @fd: File descriptor to close
  */
 void close_fd(int fd)
