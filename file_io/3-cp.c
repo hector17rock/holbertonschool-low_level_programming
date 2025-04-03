@@ -97,6 +97,14 @@ int main(int ac, char **av)
 	if (fd_from == -1)
 		error_handler(98, av[1], 0);
 
+	/* Try reading first to catch read errors */
+	char test_buf[1];
+	if (read(fd_from, test_buf, 1) == -1)
+		error_handler(98, av[1], 0);
+
+	/* Reset file position */
+	lseek(fd_from, 0, SEEK_SET);
+
 	fd_to = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, mode);
 	if (fd_to == -1)
 		error_handler(99, av[2], fd_from);
