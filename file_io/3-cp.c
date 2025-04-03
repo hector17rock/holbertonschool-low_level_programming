@@ -11,7 +11,7 @@
  * @ac: Argument count
  * @av: Argument vector
  *
- * Return: 0 on success, exit with codes on failure
+ * Return: 0 on success, exits with code on failure
  */
 int main(int ac, char **av)
 {
@@ -54,6 +54,8 @@ int main(int ac, char **av)
 	if (r_bytes == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]);
+		close(from_fd);
+		close(to_fd);
 		exit(98);
 	}
 
