@@ -7,10 +7,10 @@
 #define BUFFER_SIZE 1024
 
 /**
- * error_exit - Prints error message and exits with given code
- * @code: The exit code
- * @message: The error message format
- * @arg: The argument to include in the error message
+ * error_exit - Prints an error message and exits with a code
+ * @code: Exit code
+ * @message: Error message format
+ * @arg: Argument to include in error message
  */
 void error_exit(int code, const char *message, const char *arg)
 {
@@ -19,9 +19,9 @@ void error_exit(int code, const char *message, const char *arg)
 }
 
 /**
- * copy_file - Copies contents from one file to another
- * @file_from: Source file name
- * @file_to: Destination file name
+ * copy_file - Copies content from one file to another
+ * @file_from: Source file
+ * @file_to: Destination file
  */
 void copy_file(const char *file_from, const char *file_to)
 {
@@ -49,7 +49,6 @@ void copy_file(const char *file_from, const char *file_to)
 			close(fd_to);
 			error_exit(99, "Error: Can't write to %s\n", file_to);
 		}
-
 		read_bytes = read(fd_from, buffer, BUFFER_SIZE);
 	}
 
@@ -61,18 +60,24 @@ void copy_file(const char *file_from, const char *file_to)
 	}
 
 	if (close(fd_from) == -1)
-		error_exit(100, "Error: Can't close fd %d\n", file_from);
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+		exit(100);
+	}
 
 	if (close(fd_to) == -1)
-		error_exit(100, "Error: Can't close fd %d\n", file_to);
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
+		exit(100);
+	}
 }
 
 /**
- * main - Entry point, checks arguments and calls copy_file
+ * main - Entry point. Checks arguments and copies file.
  * @argc: Argument count
  * @argv: Argument vector
  *
- * Return: 0 on success
+ * Return: 0 on success, exits with various codes on error
  */
 int main(int argc, char *argv[])
 {
