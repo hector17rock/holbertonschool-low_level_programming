@@ -1,4 +1,4 @@
-#include "main.h"
+include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -42,7 +42,7 @@ void copy_file(const char *file_from, const char *file_to)
 	while ((read_bytes = read(fd_from, buffer, BUFFER_SIZE)) > 0)
 	{
 		write_bytes = write(fd_to, buffer, read_bytes);
-		if (write_bytes != read_bytes)
+		if (write_bytes == -1 || write_bytes != read_bytes)
 		{
 			close(fd_from);
 			close(fd_to);
@@ -51,10 +51,15 @@ void copy_file(const char *file_from, const char *file_to)
 	}
 
 	if (read_bytes == -1)
+	{
+		close(fd_from);
+		close(fd_to);
 		error_exit(98, "Error: Can't read from file %s\n", file_from);
+	}
 
 	if (close(fd_from) == -1)
 		error_exit(100, "Error: Can't close fd %d\n", file_from);
+
 	if (close(fd_to) == -1)
 		error_exit(100, "Error: Can't close fd %d\n", file_to);
 }
