@@ -10,7 +10,7 @@ void print_error(const char *msg, const char *file, int code);
  * main - Copies the content of one file to another.
  * @argc: Number of arguments.
  * @argv: Array of arguments.
- * Return: 0 on success.
+ * Return: 0 on success, appropriate exit code on failure.
  */
 int main(int argc, char *argv[])
 {
@@ -27,15 +27,25 @@ int main(int argc, char *argv[])
 	if (fd_from == -1)
 		print_error("Error: Can't read from file", argv[1], 98);
 
-	fd_to = open(argv[2], O_WRONLY | O_TRUNC | O_CREAT, 0664);
+	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
 		close_fd(fd_from);
 		print_error("Error: Can't write to", argv[2], 99);
 	}
 
-	while ((rd = read(fd_from, buf, 1024)) > 0)
+	while (1)
 	{
+		rd = read(fd_from, buf, 1024);
+		if (rd == -1)
+		{
+			close_fd(fd_from);
+			close_fd(fd_to);
+			print_error("Error: Can't read from file", argv[1], 98);
+		}
+		if (rd == 0)
+			break;
+
 		wr = write(fd_to, buf, rd);
 		if (wr != rd)
 		{
@@ -44,12 +54,6 @@ int main(int argc, char *argv[])
 			print_error("Error: Can't write to", argv[2], 99);
 		}
 	}
-	if (rd == -1)
-	{
-		close_fd(fd_from);
-		close_fd(fd_to);
-		print_error("Error: Can't read from file", argv[1], 98);
-	}
 
 	close_fd(fd_from);
 	close_fd(fd_to);
@@ -57,8 +61,8 @@ int main(int argc, char *argv[])
 }
 
 /**
- * close_fd - Closes a file descriptor with error check.
- * @fd: File descriptor to close.
+ * close_fd - Closes a file descriptor with error handling.
+ * @fd: The file descriptor to close.
  */
 void close_fd(int fd)
 {
@@ -70,10 +74,10 @@ void close_fd(int fd)
 }
 
 /**
- * print_error - Prints error and exits.
- * @msg: Error message.
- * @file: File name.
- * @code: Exit code.
+ * print_error - Prints an error message and exits.
+ * @msg: The error message.
+ * @file: The file name related to the error.
+ * @code: The exit code to use.
  */
 void print_error(const char *msg, const char *file, int code)
 {
