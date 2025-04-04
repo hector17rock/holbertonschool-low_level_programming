@@ -1,9 +1,4 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
 /**
  * main - It append the file
  * @argc: argument counter
