@@ -95,6 +95,20 @@ holbertonschool-low_level_programming/
 - Understanding preprocessor, compiler, assembler, and linker
 - **Files**: 10 programs covering basic output and compilation
 
+**Example:** `4-puts.c`
+```c
+#include <stdio.h>
+/**
+ * main - Entry point
+ * Return: Return 0 when done.
+ */
+int main(void)
+{
+    puts("\"Programming is like building a multilingual puzzle");
+    return (0);
+}
+```
+
 #### **0x01. Variables, if, else, while**
 - Variable declarations and assignments
 - Conditional statements (`if`, `else`, `else if`)
@@ -121,17 +135,84 @@ holbertonschool-low_level_programming/
 - String processing functions
 - **Files**: 73 programs covering pointer concepts
 
+**Example:** `0-reset_to_98.c`
+```c
+#include "main.h"
+
+/**
+ * reset_to_98 - updates the value of an integer to 98
+ * @n: pointer to the integer to be updated
+ */
+void reset_to_98(int *n)
+{
+    *n = 98; /* Dereference the pointer and set the value to 98 */
+}
+```
+
 #### **0x05. Recursion**
 - Recursive function design
 - Base cases and recursive cases
 - Mathematical sequences and algorithms
 - **Files**: 35 programs exploring recursion
 
+**Example:** `0-puts_recursion.c`
+```c
+#include "main.h"
+
+/**
+ * _puts_recursion - prints a string followed by a new line
+ * @s: The string to print
+ *
+ * Return: Nothing
+ */
+void _puts_recursion(char *s)
+{
+    if (*s == '\0')
+    {
+        _putchar('\n');
+        return;
+    }
+    _putchar(*s);
+    _puts_recursion(s + 1);
+}
+```
+
 #### **0x06. malloc, free**
 - Dynamic memory allocation
 - Memory management best practices
 - Creating arrays and strings at runtime
 - **Files**: 28 programs focusing on heap memory
+
+**Example:** `0-create_array.c`
+```c
+#include "main.h"
+#include <stdlib.h>
+
+/**
+ * create_array - Creates an array of chars, and initializes it with a specific char
+ * @size: The size of the array to be created
+ * @c: The character to initialize the array with
+ *
+ * Return: A pointer to the array, or NULL if it fails
+ */
+char *create_array(unsigned int size, char c)
+{
+    char *array;
+    unsigned int i;
+
+    if (size == 0)
+        return (NULL);
+
+    array = malloc(size * sizeof(char));
+    if (array == NULL)
+        return (NULL);
+
+    for (i = 0; i < size; i++)
+        array[i] = c;
+
+    return (array);
+}
+```
 
 #### **0x07. More malloc, free**
 - Advanced memory allocation patterns
@@ -164,6 +245,36 @@ holbertonschool-low_level_programming/
 - Node creation and deletion
 - List traversal and manipulation
 - **Files**: 27 programs building linked lists
+
+**Example:** `0-print_list.c`
+```c
+#include <stdio.h>
+#include "lists.h"
+
+/**
+ * print_list - prints all the elements of a list_t list
+ * @h: pointer to the head of the list
+ *
+ * Return: the number of nodes
+ */
+size_t print_list(const list_t *h)
+{
+    size_t count = 0;
+
+    while (h != NULL)
+    {
+        if (h->str == NULL)
+            printf("[0] (nil)\n");
+        else
+            printf("[%u] %s\n", h->len, h->str);
+
+        h = h->next;
+        count++;
+    }
+
+    return (count);
+}
+```
 
 #### **0x0C. Doubly linked lists**
 - Bidirectional linked lists
