@@ -10,17 +10,17 @@ This repository contains a complete curriculum of low-level programming exercise
 
 ## 📚 Table of Contents
 
-- [About](#about)
-- [Learning Objectives](#learning-objectives)
-- [Repository Structure](#repository-structure)
-- [Project Descriptions](#project-descriptions)
-- [Getting Started](#getting-started)
-- [Compilation](#compilation)
-- [Testing](#testing)
-- [Coding Standards](#coding-standards)
-- [Resources](#resources)
-- [Author](#author)
-- [License](#license)
+- [About](#-about)
+- [Learning Objectives](#-learning-objectives)
+- [Repository Structure](#️-repository-structure)
+- [Project Descriptions](#-project-descriptions)
+- [Getting Started](#-getting-started)
+- [Compilation](#️-compilation)
+- [Testing](#-testing)
+- [Coding Standards](#-coding-standards)
+- [Resources](#-resources)
+- [Author](#-author)
+- [License](#-license)
 
 ## 🎯 About
 
