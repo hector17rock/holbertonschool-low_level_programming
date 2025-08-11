@@ -348,7 +348,7 @@ betty *.c
 
 ## 👨‍💻 Author
 
-**Hector Manuel Torres Garcia**
+**Hector Soto**
 
 - 🐱 **GitHub**: [@hector17rock](https://github.com/hector17rock)
 - 📧 **Email**: [Contact via GitHub](https://github.com/hector17rock)
@@ -388,6 +388,6 @@ While this repository primarily serves as a learning portfolio, feedback and sug
 
 ### 🌟 **"First, solve the problem. Then, write the code."** 🌟
 
-**Made with ❤️ by [Hector Torres](https://github.com/hector17rock)**
+**Made with ❤️ by [Hector Soto](https://github.com/hector17rock)**
 
 </div>
